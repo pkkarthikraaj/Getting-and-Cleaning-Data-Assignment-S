@@ -85,3 +85,8 @@ Master$participants[Master$participants == 28] <- "Participant 28"
 Master$participants[Master$participants == 29] <- "Participant 29"
 Master$participants[Master$participants == 30] <- "Participant 30"
 Master$participants <- as.factor(Master$participants)
+
+Master.dt <- data.table(Master)
+#This takes the mean of every column broken down by participants and activities
+TidyData <- Master.dt[, lapply(.SD, mean), by = 'participants,activities']
+write.table(TidyData, file = "Tidy.txt", row.names = FALSE)
